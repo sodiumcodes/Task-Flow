@@ -13,20 +13,16 @@ const allowedOrigins = [
     "http://localhost:5173",
     "https://task-flow-xi-lemon.vercel.app",
 ]
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
+    console.log("Incoming origin:", origin);
 
-    console.log("Incoming origin:", origin); // optional debug
-
-    // allow requests like Postman (no origin)
     if (!origin) return callback(null, true);
 
-    // ✅ allow all vercel domains (temporary or permanent)
     if (origin.includes("vercel.app")) {
       return callback(null, true);
     }
 
-    // ✅ strict match for others
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
@@ -34,8 +30,10 @@ app.use(cors({
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
-}));
-app.options("*", cors());
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded());
