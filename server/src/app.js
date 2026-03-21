@@ -16,9 +16,18 @@ const allowedOrigins = [
     // BLACKBOXAI: Fixed CORS for Vercel frontend -> Render backend deploys. Trailing / removed for standard origin matching.
 ]
 app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
-}))
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded());
