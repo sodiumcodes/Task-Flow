@@ -8,9 +8,6 @@ const cors = require("cors")
 const app = express();
 
 //Built in middlewares
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(cookieParser());
 
 const allowedOrigins = [
     "http://localhost:5173",
@@ -22,6 +19,10 @@ app.use(cors({
     origin: allowedOrigins,
     credentials: true
 }))
+
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 app.use(morgan("dev"))
 
