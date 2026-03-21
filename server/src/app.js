@@ -13,6 +13,8 @@ const allowedOrigins = [
     "http://localhost:5173",
     "https://task-manager-phi-five-12.vercel.app",
     "https://task-flow-xi-lemon.vercel.app",
+    "https://task-flow-xi-lemon.vercel.app/"
+
     // BLACKBOXAI: Fixed CORS for Vercel frontend -> Render backend deploys. Trailing / removed for standard origin matching.
 ]
 app.use(cors({
