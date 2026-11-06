@@ -8,19 +8,37 @@ const cors = require("cors")
 const app = express();
 
 //Built in middlewares
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(cookieParser());
 
 const allowedOrigins = [
     "http://localhost:5173",
     "https://task-manager-phi-five-12.vercel.app",
     "https://modern-task-flow.vercel.app/",
 ]
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
-}))
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("Incoming origin:", origin);
+
+    if (!origin) return callback(null, true);
+
+    if (origin.includes("vercel.app")) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 app.use(morgan("dev"))
 
