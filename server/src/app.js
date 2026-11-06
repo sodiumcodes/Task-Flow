@@ -34,7 +34,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options("/{*splat}", cors(corsOptions)); //Express 5 no longer accepts '*' as a wildcard route.
 
 app.use(express.json());
 app.use(express.urlencoded());

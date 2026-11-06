@@ -242,4 +242,4 @@ This project is licensed under the [ISC License](https://opensource.org/licenses
 ## 🙋‍♂️ Author
 
 **Manash Swain**  
-GitHub: [@Manash2005](https://github.com/Manash2005)
+**Naina Dugar**  
